@@ -4,7 +4,16 @@ import { useState, FormEvent } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
-import { Input, Button, Textarea, Select, SelectItem, DatePicker } from "@heroui/react";
+import {
+  Input,
+  Button,
+  Textarea,
+  Select,
+  SelectItem,
+  DatePicker,
+  Autocomplete,
+  AutocompleteItem,
+} from "@heroui/react";
 import { Form } from "@heroui/form";
 
 interface FormDataType {
@@ -69,8 +78,11 @@ export default function EditNewsPage(): JSX.Element {
 
         <CardBody>
           <div className="px-4 sm:px-6">
-            <Form className="flex flex-col gap-6" onSubmit={handleSubmit} onReset={handleReset}>
-              
+            <Form
+              className="flex flex-col gap-6"
+              onSubmit={handleSubmit}
+              onReset={handleReset}
+            >
               {/* Title */}
               <Input
                 isRequired
@@ -95,27 +107,28 @@ export default function EditNewsPage(): JSX.Element {
               />
 
               {/* Section + Date */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+              <div className="flex  gap-6 items-end">
                 {/* Section */}
-                <Select
+
+                <Autocomplete
+                  className="max-w-xs"
                   label="Section"
                   labelPlacement="outside"
                   placeholder="Select section"
                   isRequired
                   errorMessage="Please select a section"
                   name="section"
-                  className="w-full"
                 >
                   {sections.map((section) => (
-                    <SelectItem key={section}>{section}</SelectItem>
+                    <AutocompleteItem key={section}>{section}</AutocompleteItem>
                   ))}
-                </Select>
+                </Autocomplete>
 
                 {/* Publish Date */}
                 <DatePicker
                   label="Publish Date"
                   labelPlacement="outside"
-                  className="w-full"
+                  className="w-full !p-0"
                   isRequired
                   errorMessage="Please select a date"
                   name="publishDate"
